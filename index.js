@@ -39,10 +39,16 @@ app.use(express.urlencoded({ extended: true })); // application/x-www-form-urlen
 app.use(express.static(path.join(__dirname, "public")));
 
 // routers
-const datetimeRoutes = require("./api/routes/datetime.routes");
+const authRoutes = require("./src/routes/auth.routes");
+const commonRoutes = require("./src/routes/common.routes");
+const datetimeRoutes = require("./src/routes/datetime.routes");
+const mediaRoutes = require("./src/routes/media.routes");
 
 // routes
+app.use("/utils/auth", authRoutes);
+app.use("/utils/common", commonRoutes);
 app.use("/utils/datetime", datetimeRoutes);
+app.use("/utils/media", mediaRoutes);
 
 // open API swagger UI setup
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
