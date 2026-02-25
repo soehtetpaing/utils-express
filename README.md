@@ -1,6 +1,6 @@
 # Genius Utils REST APIs
 
-This project was generated using [Express JS](https://github.com/expressjs/express) version 5.2.1 and [Genius Utils Lib](https://github.com/soehtetpaing/utils-node.git) version 1.0.2.
+This project was generated using [Express JS](https://github.com/expressjs/express) version 5.2.1 and [Genius Utils Lib](https://github.com/soehtetpaing/utils-lib-express.git) version 1.0.3.
 
 ## Installation & Setup
 

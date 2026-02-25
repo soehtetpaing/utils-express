@@ -17,6 +17,7 @@ app.use(
         "http://localhost:4200",
         "http://127.0.0.1:8000",
         "http://www.genius.utils.com",
+        "https://soehtetpaing.github.io",
       ];
 
       if (!origin || allowOrigins.indexOf(origin) !== -1) {
