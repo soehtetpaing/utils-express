@@ -5,6 +5,8 @@ const path = require("path");
 const swaggerUi = require("swagger-ui-express");
 const swaggerSpec = require("./swagger");
 
+const { allowOrigins } = require("./src/configs/cors.config");
+
 const app = express();
 const server = http.createServer(app);
 
@@ -12,13 +14,7 @@ const server = http.createServer(app);
 app.use(
   cors({
     origin: function (origin, callback) {
-      const allowOrigins = [
-        "http://localhost:8000",
-        "http://localhost:4200",
-        "http://127.0.0.1:8000",
-        "http://www.genius.utils.com",
-        "https://soehtetpaing.github.io",
-      ];
+      // const allowOrigins = allowOrigins;
 
       if (!origin || allowOrigins.indexOf(origin) !== -1) {
         callback(null, true);

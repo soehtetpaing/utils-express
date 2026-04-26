@@ -1,11 +1,14 @@
 const swaggerJsdoc = require("swagger-jsdoc");
 
+const apiUrl = process.env.API_URL;
+const version = process.env.VERSION;
+
 const options = {
   definition: {
     openapi: "3.0.0",
     info: {
       title: "Genius Utils",
-      version: "1.0.0",
+      version: version,
       description: "Genius Utils REST APIs documentation",
       contact: {
         name: "API Support",
@@ -15,7 +18,7 @@ const options = {
     },
     servers: [
       {
-        url: "http://localhost:8000",
+        url: apiUrl,
       },
     ],
   },

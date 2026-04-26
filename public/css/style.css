@@ -1,11 +1,13 @@
 body {
     font-family: "Lora", serif;
+    background-color: #f9fcff;
+    color: #1c2022;
     transition: background-color 0.3s, color 0.3s;
 }
 
 .dark-mode {
-    background-color: #171717;
-    color: #f1f1f1;
+    background-color: #1c2022;
+    color: #f9fcff;
 }
 
 .center-container {
