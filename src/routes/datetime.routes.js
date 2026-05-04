@@ -1,6 +1,12 @@
 /**
  * @swagger
  * components:
+ *  securitySchemes:
+ *   bearerAuth:
+ *    type: http
+ *    scheme: bearer
+ *    bearerFormat: JWT
+ *    description: Enter JWT token as "Bearer <token>"
  *  schemas:
  *   baseResponse:
  *    x-internal: true
@@ -10,11 +16,21 @@
  *      type: integer
  *     message:
  *      type: string
+ *     metadata:
+ *      type: object
+ *      properties:
+ *       requestId:
+ *        type: string
+ *       timestamp:
+ *        type: string
+ *       version:
+ *        type: string
  */
 
 const express = require("express");
 const router = express.Router();
 const datetimeController = require("../controllers/datetime.controller");
+const { checkToken } = require("../middlewares/auth.middleware");
 
 /**
  * @swagger
@@ -22,6 +38,8 @@ const datetimeController = require("../controllers/datetime.controller");
  *   get:
  *     summary: Get Myanmar Datetime
  *     tags: [Datetime]
+ *     security:
+ *      - bearerAuth: []
  *     responses:
  *       200:
  *         description: Fetch Myanmar Datetime Success
@@ -39,6 +57,10 @@ const datetimeController = require("../controllers/datetime.controller");
  *                  message: Success
  *                  data:
  *                    myanmarDateTime: 2026-01-20 10:10:15 AM
+ *                  metadata:
+ *                   requestId: "100301884220379136"
+ *                   timestamp: 2026-04-26 05:25:24 PM
+ *                   version: 1.0.0
  *       500:
  *        description: Get Myanmar Datetime Failed
  *        content:
@@ -50,8 +72,12 @@ const datetimeController = require("../controllers/datetime.controller");
  *              example:
  *               status: 500
  *               message: Failed
+ *               metadata:
+ *                requestId: "100301884220379136"
+ *                timestamp: 2026-04-26 05:25:24 PM
+ *                version: 1.0.0
  */
-router.get("/currentDatetime", datetimeController.getMyanmarDateTime);
+router.get("/currentDatetime", checkToken, datetimeController.getMyanmarDateTime);
 
 /**
  * @swagger
@@ -59,6 +85,8 @@ router.get("/currentDatetime", datetimeController.getMyanmarDateTime);
  *   get:
  *     summary: Get Myanmar Date
  *     tags: [Datetime]
+ *     security:
+ *      - bearerAuth: []
  *     responses:
  *       200:
  *         description: Fetch Myanmar Date Success
@@ -76,6 +104,10 @@ router.get("/currentDatetime", datetimeController.getMyanmarDateTime);
  *                  message: Success
  *                  data:
  *                    myanmarDate: 20260222
+ *                  metadata:
+ *                   requestId: "100301884220379136"
+ *                   timestamp: 2026-04-26 05:25:24 PM
+ *                   version: 1.0.0
  *       500:
  *        description: Get Myanmar Date Failed
  *        content:
@@ -87,8 +119,12 @@ router.get("/currentDatetime", datetimeController.getMyanmarDateTime);
  *              example:
  *               status: 500
  *               message: Failed
+ *               metadata:
+ *                requestId: "100301884220379136"
+ *                timestamp: 2026-04-26 05:25:24 PM
+ *                version: 1.0.0
  */
-router.get("/currentDate", datetimeController.getMyanmarDate);
+router.get("/currentDate", checkToken, datetimeController.getMyanmarDate);
 
 /**
  * @swagger
@@ -96,6 +132,8 @@ router.get("/currentDate", datetimeController.getMyanmarDate);
  *   get:
  *     summary: Get Myanmar Hour
  *     tags: [Datetime]
+ *     security:
+ *      - bearerAuth: []
  *     responses:
  *       200:
  *         description: Fetch Myanmar Hour Success
@@ -113,6 +151,10 @@ router.get("/currentDate", datetimeController.getMyanmarDate);
  *                  message: Success
  *                  data:
  *                    myanmarHour: 10:10:15 AM
+ *                  metadata:
+ *                   requestId: "100301884220379136"
+ *                   timestamp: 2026-04-26 05:25:24 PM
+ *                   version: 1.0.0
  *       500:
  *        description: Get Myanmar Hour Failed
  *        content:
@@ -124,8 +166,12 @@ router.get("/currentDate", datetimeController.getMyanmarDate);
  *              example:
  *               status: 500
  *               message: Failed
+ *               metadata:
+ *                requestId: "100301884220379136"
+ *                timestamp: 2026-04-26 05:25:24 PM
+ *                version: 1.0.0
  */
-router.get("/currentHour", datetimeController.getMyanmarHour);
+router.get("/currentHour", checkToken, datetimeController.getMyanmarHour);
 
 /**
  * @swagger
@@ -133,6 +179,8 @@ router.get("/currentHour", datetimeController.getMyanmarHour);
  *  get:
  *   summary: Convert Datetime by Target Timezone
  *   tags: [Datetime]
+ *   security:
+ *    - bearerAuth: []
  *   parameters:
  *    - in: query
  *      name: datetime
@@ -164,6 +212,10 @@ router.get("/currentHour", datetimeController.getMyanmarHour);
  *            message: Success
  *            data:
  *             convertedDateTime: 2026-02-22 08:49:10 PM
+ *            metadata:
+ *             requestId: "100301884220379136"
+ *             timestamp: 2026-04-26 05:25:24 PM
+ *             version: 1.0.0
  *    500:
  *     description: Convert Datetime By Zone Failed
  *     content:
@@ -174,8 +226,12 @@ router.get("/currentHour", datetimeController.getMyanmarHour);
  *         - type: object
  *           example:
  *            status: 500
- *            message: Failed 
+ *            message: Failed
+ *            metadata:
+ *             requestId: "100301884220379136"
+ *             timestamp: 2026-04-26 05:25:24 PM
+ *             version: 1.0.0 
  */
-router.get("/convertDateTimeByZone", datetimeController.getDateTimeByZone);
+router.get("/convertDateTimeByZone", checkToken, datetimeController.getDateTimeByZone);
 
 module.exports = router;

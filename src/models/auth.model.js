@@ -1,6 +1,10 @@
 const { AuthHandler } = require("genius-utils");
 
 class AuthModel {
+    static generateJwtToken(user, jwtSecret, refreshSecret) {
+        return AuthHandler.generateJwtToken(user, jwtSecret, refreshSecret);
+    }
+
     static getUniqueId() {
         return AuthHandler.getUniqueId();
     }

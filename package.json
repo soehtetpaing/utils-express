@@ -1,6 +1,6 @@
 {
   "name": "utils-express",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -15,7 +15,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^5.2.1",
-    "genius-utils": "file:./vendor/genius-utils-1.0.4.tgz",
+    "genius-utils": "file:./vendor/genius-utils-1.0.5.tgz",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1"
   },

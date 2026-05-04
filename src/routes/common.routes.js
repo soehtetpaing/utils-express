@@ -1,6 +1,12 @@
 /**
  * @swagger
  * components:
+ *  securitySchemes:
+ *   bearerAuth:
+ *    type: http
+ *    scheme: bearer
+ *    bearerFormat: JWT
+ *    description: Enter JWT token as "Bearer <token>"
  *  schemas:
  *   baseResponse:
  *    x-internal: true
@@ -10,11 +16,21 @@
  *      type: integer
  *     message:
  *      type: string
+ *     metadata:
+ *      type: object
+ *      properties:
+ *       requestId:
+ *        type: string
+ *       timestamp:
+ *        type: string
+ *       version:
+ *        type: string
  */
 
 const express = require("express");
 const router = express.Router();
 const commonController = require("../controllers/common.controller");
+const { checkToken } = require("../middlewares/auth.middleware");
 
 /**
  * @swagger
@@ -22,6 +38,8 @@ const commonController = require("../controllers/common.controller");
  *  get:
  *   summary: Generate Syskey
  *   tags: [Common]
+ *   security:
+ *    - bearerAuth: []
  *   responses:
  *    200:
  *     description: Syskey Generation Success
@@ -38,7 +56,11 @@ const commonController = require("../controllers/common.controller");
  *            status: 200
  *            message: Success
  *            data:
- *             syskey: 260222043504177
+ *             syskey: 100301882257448960
+ *            metadata:
+ *             requestId: "100301884220379136"
+ *             timestamp: 2026-04-26 05:25:24 PM
+ *             version: 1.0.0
  *    500:
  *     description: Syskey Generation Failed
  *     content:
@@ -50,8 +72,12 @@ const commonController = require("../controllers/common.controller");
  *           example:
  *            status: 500
  *            message: Failed
+ *            metadata:
+ *             requestId: "100301884220379136"
+ *             timestamp: 2026-04-26 05:25:24 PM
+ *             version: 1.0.0
  */
-router.get("/syskey", commonController.getSyskey);
+router.get("/syskey", checkToken, commonController.getSyskey);
 
 /**
  * @swagger
@@ -59,6 +85,8 @@ router.get("/syskey", commonController.getSyskey);
  *  get:
  *   summary: Get Super Admin
  *   tags: [Common]
+ *   security:
+ *    - bearerAuth: []
  *   responses:
  *    200:
  *     description: Super Admin Fetch Success
@@ -74,7 +102,11 @@ router.get("/syskey", commonController.getSyskey);
  *           example:
  *            status: 200
  *            message: Success
- *            data:
+ *            data: {}
+ *            metadata:
+ *             requestId: "100301884220379136"
+ *             timestamp: 2026-04-26 05:25:24 PM
+ *             version: 1.0.0
  *    500:
  *     description: Super Admin Fetch Failed
  *     content:
@@ -86,8 +118,12 @@ router.get("/syskey", commonController.getSyskey);
  *           example:
  *            status: 500
  *            message: Failed
+ *            metadata:
+ *             requestId: "100301884220379136"
+ *             timestamp: 2026-04-26 05:25:24 PM
+ *             version: 1.0.0
  */
-router.get("/superAdmin", commonController.getSuperAdmin);
+router.get("/superAdmin", checkToken, commonController.getSuperAdmin);
 
 /**
  * @swagger
@@ -95,6 +131,8 @@ router.get("/superAdmin", commonController.getSuperAdmin);
  *  get:
  *   summary: Get Demo User
  *   tags: [Common]
+ *   security:
+ *    - bearerAuth: []
  *   responses:
  *    200:
  *     description: Demo User Fetch Success
@@ -110,7 +148,11 @@ router.get("/superAdmin", commonController.getSuperAdmin);
  *           example:
  *            status: 200
  *            message: Success
- *            data:
+ *            data: {}
+ *            metadata:
+ *             requestId: "100301884220379136"
+ *             timestamp: 2026-04-26 05:25:24 PM
+ *             version: 1.0.0
  *    500:
  *     description: Demo User Fetch Failed
  *     content:
@@ -122,8 +164,12 @@ router.get("/superAdmin", commonController.getSuperAdmin);
  *           example:
  *            status: 500
  *            message: Failed
+ *            metadata:
+ *             requestId: "100301884220379136"
+ *             timestamp: 2026-04-26 05:25:24 PM
+ *             version: 1.0.0
  */
-router.get("/demoUser", commonController.getDemoUser);
+router.get("/demoUser", checkToken, commonController.getDemoUser);
 
 /**
  * @swagger
@@ -131,6 +177,8 @@ router.get("/demoUser", commonController.getDemoUser);
  *  get:
  *   summary: Get Device Info
  *   tags: [Common]
+ *   security:
+ *    - bearerAuth: []
  *   responses:
  *    200:
  *     description: Device Info Fetch Success
@@ -147,6 +195,10 @@ router.get("/demoUser", commonController.getDemoUser);
  *            status: 200
  *            message: Success
  *            data:
+ *            metadata:
+ *             requestId: "100301884220379136"
+ *             timestamp: 2026-04-26 05:25:24 PM
+ *             version: 1.0.0
  *    500:
  *     description: Device Info Fetch Failed
  *     content:
@@ -158,7 +210,11 @@ router.get("/demoUser", commonController.getDemoUser);
  *           example:
  *            status: 500
  *            message: Failed
+ *            metadata:
+ *             requestId: "100301884220379136"
+ *             timestamp: 2026-04-26 05:25:24 PM
+ *             version: 1.0.0
  */
-router.get("/deviceInfo", commonController.getDeviceInfo);
+router.get("/deviceInfo", checkToken, commonController.getDeviceInfo);
 
 module.exports = router;

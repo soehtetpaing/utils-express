@@ -1,4 +1,8 @@
 const datetimeModel = require("../models/datetime.model");
+const { CommonHandler, DateTimeHandler } = require("genius-utils");
+const { app } = require("../configs/app.config");
+
+const APP_VERSION = process.env.APP_VERSION || app.version;
 
 exports.getMyanmarDateTime = (req, res) => {
     const currentDateTime = datetimeModel.getMyanmarDateTime();
@@ -6,13 +10,15 @@ exports.getMyanmarDateTime = (req, res) => {
     if (!currentDateTime) {
         return res.status(500).json({
             status: 500,
-            message: "Failed to fetch Myanmar datetime!"
+            message: "Failed to fetch Myanmar datetime!",
+            metadata: generateMetadata()
         });
     } else {
         return res.status(200).json({
             status: 200,
             message: "Success",
-            data: { myanmarDateTime: currentDateTime}
+            data: { myanmarDateTime: currentDateTime },
+            metadata: generateMetadata()
         });
     }
 }
@@ -23,13 +29,15 @@ exports.getMyanmarDate = (req, res) => {
     if (!currentDate) {
         return res.status(500).json({
             status: 500,
-            message: "Failed to fetch Myanmar date!"
+            message: "Failed to fetch Myanmar date!",
+            metadata: generateMetadata()
         });
     } else {
         return res.status(200).json({
             status: 200,
             message: "Success",
-            data: { myanmarDate: currentDate }
+            data: { myanmarDate: currentDate },
+            metadata: generateMetadata()
         });
     }
 }
@@ -40,13 +48,15 @@ exports.getMyanmarHour = (req, res) => {
     if (!currentHour) {
         return res.status(500).json({
             status: 500,
-            message: "Failed to fetch Myanmar hour!"
+            message: "Failed to fetch Myanmar hour!",
+            metadata: generateMetadata()
         });
     } else {
         return res.status(200).json({
             status: 200,
             message: "Success",
-            data: { myanmarHour: currentHour }
+            data: { myanmarHour: currentHour },
+            metadata: generateMetadata()
         });
     }
 }
@@ -57,7 +67,8 @@ exports.getDateTimeByZone = (req, res) => {
     if (!targetZone) {
         return res.status(500).json({
             status: 400,
-            message: "Target timezone is required!"
+            message: "Target timezone is required!",
+            metadata: generateMetadata()
         });
     }
 
@@ -66,13 +77,24 @@ exports.getDateTimeByZone = (req, res) => {
     if (!targetZoneDateTime) {
         return res.status(500).json({
             status: 500,
-            message: "Failed to convert datetime to target timezone!"
+            message: "Failed to convert datetime to target timezone!",
+            metadata: generateMetadata()
         });
     } else {
         return res.status(200).json({
             status: 200,
             message: "Success",
-            data: { targetZoneDateTime }
+            data: { targetZoneDateTime },
+            metadata: generateMetadata()
         });
+    }
+}
+
+// metadata
+function generateMetadata() {
+    return {
+        requestId: CommonHandler.getSyskey(),
+        timestamp: DateTimeHandler.getMyanmarDateTime(),
+        version: APP_VERSION
     }
 }
